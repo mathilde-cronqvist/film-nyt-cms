@@ -1,0 +1,12 @@
+<header>
+    <nav>
+        <ul class="main_menu">
+            <% results.forEach( result =>{ %>
+
+                <li><a href="/<%= result.url %>"><%= result.menu_name %></a></li>
+
+            <% }); %>
+        </ul>
+
+    </nav>
+</header>
