@@ -6,7 +6,7 @@ module.exports = function(app){
             res.redirect('/login');
             return;
         }else{
-            next();
+            next(); 
         }
     });
 

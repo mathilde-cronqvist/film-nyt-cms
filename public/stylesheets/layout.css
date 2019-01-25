@@ -2,6 +2,7 @@ body{
     margin: 0;
     background-color: rgb(73, 83, 143);
     color: #FFF;
+    font-family: 'Roboto', sans-serif;
 }
 .wrapper{
     max-width: 900px;
@@ -26,4 +27,8 @@ footer{
     border-right:solid 2px rgb(29, 29, 29);
     border-top:solid 4px rgb(29, 29, 29);
     border-radius: 20px 20px 0 0;
+}
+#admin_panel{
+    background-color: rgb(51, 61, 114);
+    max-width: 20%;
 }
