@@ -1,0 +1,17 @@
+<% include partials/head.ejs %>
+<% include partials/header.ejs %>
+<main class="wrapper">
+
+    <% results.forEach( result =>{ %>
+
+       <article>
+           <h2><%= result.heading %></h2>
+           <p><%= result.description %></p>
+       </article>
+
+    <% }); %>
+
+    
+</main>
+<% include partials/footer.ejs %>
+<% include partials/after-footer.ejs %>

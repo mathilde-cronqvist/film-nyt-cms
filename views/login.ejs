@@ -1,0 +1,17 @@
+<% include partials/head.ejs %>
+
+<main>
+    <form id="login_form" action="/auth/login" method="POST">
+      
+    
+        <div class="inputGroup">
+            <h1><%= title %></h1>
+            <input type="text" name="username" id="username" placeholder="Brugernavn">
+            <input type="password" name="passphrase" id="passphrase" placeholder="Adgangskode">
+            <button type="submit">LOG IND</button>
+        </div>
+    </form>
+    
+</main>
+<% include partials/footer.ejs %>
+<% include partials/after-footer.ejs %>
