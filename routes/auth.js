@@ -2,8 +2,6 @@ const db = require('../config/database')();
 const bcrypt = require('bcryptjs');
 
 module.exports = function (app){
-
-	console.log(bcrypt.hashSync('1234', 10));
     app.get('/login', (req, res, next) => {
 		if (req.query.status && req.query.status === 'badcredentials') {
 			console.log("bad badcredentials");
@@ -21,11 +19,8 @@ module.exports = function (app){
 					res.redirect('/login?status=badcredentials');
 					return;
 				}
-				if(bcrypt.compareSync(req.body.passphrase, result.users.passphrase)){
-					req.session.user = result[0].id;
-					res.redirect('/profile');
-				}
-				
+				req.session.user = result[0].id;
+				res.redirect('/profile');
 			});
 	});
 
