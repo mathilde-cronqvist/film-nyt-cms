@@ -1,0 +1,18 @@
+<% include partials/head.ejs %>
+<main>
+    <form id="login_form" class="opr_bruger" action="/auth/opret" method="POST">
+      
+    
+        <div class="inputGroup">
+            <h1><%= title %></h1>
+           
+            <input type="text" name="username" id="username" placeholder="Brugernavn"> 
+            <input type="email" name="email" placeholder="Email">
+            <input type="password" name="passphrase" id="passphrase" placeholder="Adgangskode">
+            <button type="submit">OPRET</button>
+        </div>
+    </form>
+    
+</main>
+<% include partials/footer.ejs %>
+<% include partials/after-footer.ejs %>

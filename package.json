@@ -22,6 +22,7 @@
   "homepage": "https://github.com/hopex1411/anton_kodebase_a#readme",
   "dependencies": {
     "bcrypt": "^3.0.0",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "dotenv": "^6.0.0",
     "ejs": "^2.6.1",

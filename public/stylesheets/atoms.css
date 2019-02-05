@@ -1,3 +1,8 @@
 a{
     color:#FFF;
 }
+#login_form a{
+    text-decoration: none;
+    padding: 2%;
+    text-align: right;
+}
