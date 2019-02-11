@@ -27,9 +27,9 @@ module.exports = function (app){
     });
 
     app.get('/rediger_artikel/:id', (req, res, next) =>{
-        db.query(`SELECT * FROM film_nyt.articles`, function (err, results){
+        db.query(`SELECT * FROM film_nyt.articles`,[`${req.params.id}`], function (err, results){
             if(err) res.send(err);
-            res.render('new_article', {title : 'Rediger Artikel', 'results' : results});
+            res.render('new_article', {title : 'Rediger Artikel', 'submit' : 'Gem' ,'results' : results[0]});
         });
     });
  

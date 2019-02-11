@@ -4,17 +4,17 @@
      <main id="newArticle">
      <h1><%= title %></h1>
 
-     <form action="/ny_artikel" method="post" id="newArticleForm">
+     <form action="/ny_artikel" method="post" id="newArticleForm" autocomplete="off">
         <label for="heading">Overskrift</label>
-        <input type="text" name="heading">
+        <input type="text" name="heading" value="<%= results.heading %>">
 
         <label for="description">Beskrivelse</label>
-        <textarea name="description" rows="10"></textarea>
+        <textarea name="description" rows="10"><%= results.description %></textarea>
         
         <label for="content">Indhold</label>
-        <textarea name="content" rows="10"></textarea>
+        <textarea name="content" rows="10"><%= results.content %></textarea>
 
-        <button type="submit">Opret</button>
+        <button type="submit"><%= submit %></button>
 
      </form>
      

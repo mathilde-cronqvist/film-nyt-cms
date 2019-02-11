@@ -14,7 +14,7 @@
     border-right: solid 5px #353535;
     border-top: solid 3px #353535;
 }
-#login_form input{
+#login_form input, #newArticleForm input, #newArticleForm textarea{
     margin: 2%;
     padding: 5%;
     border-radius: 5px;
@@ -24,6 +24,13 @@
     border-top: solid 1.5px #353535;
     color: #ebebeb;
 }
+#newArticleForm input, #newArticleForm textarea{
+  padding: 2%
+}
+#newArticleForm textarea{
+  font-family: 'Roboto', sans-serif;
+}
+
 #login_form ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     color:#ebebeb;
   }
