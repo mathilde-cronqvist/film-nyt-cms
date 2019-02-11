@@ -36,12 +36,31 @@ footer{
 .profile{
     display: grid;
     grid-template-columns: 15% auto;
-    grid-template-rows: 90vh;
     grid-template-areas: 'adminPanel profile';
     grid-row-gap: 1em;
     grid-column-gap: 1em;
+    margin-bottom: 2em;
+
 }
 #admin_panel{
     background-color: rgb(51, 61, 114);
     grid-area: adminPanel;
+    height: 90vh;
+}
+#newArticle{
+   margin: 0 auto; 
+   width: 40%;
+}
+#newArticleForm{
+    display: grid;
+    grid-template-columns: 1fr;
+    background-color: rgb(51, 61, 114);
+    padding: 4%;
+    border-radius: 20px;
+}
+#newArticleForm input, #newArticleForm textarea{
+    margin-bottom: 2em;
+}
+#newArticleForm button{
+    width: 20%;
 }

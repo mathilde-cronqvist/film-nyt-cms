@@ -1,0 +1,25 @@
+<% include partials/head.ejs %>
+<section class="profile">
+    <% include partials/admin-panel.ejs %>
+     <main id="newArticle">
+     <h1><%= title %></h1>
+
+     <form action="/ny_artikel" method="post" id="newArticleForm">
+        <label for="heading">Overskrift</label>
+        <input type="text" name="heading">
+
+        <label for="description">Beskrivelse</label>
+        <textarea name="description" rows="10"></textarea>
+        
+        <label for="content">Indhold</label>
+        <textarea name="content" rows="10"></textarea>
+
+        <button type="submit">Opret</button>
+
+     </form>
+     
+     
+     </main> 
+     </section>
+<% include partials/footer.ejs %>
+<% include partials/after-footer.ejs %>

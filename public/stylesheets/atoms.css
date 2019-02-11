@@ -6,3 +6,6 @@ a{
     padding: 2%;
     text-align: right;
 }
+textarea{
+    resize: none;
+}
