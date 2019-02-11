@@ -1,10 +1,11 @@
 <% include partials/head.ejs %>
-<aside id='admin_panel'>
+<section class="profile">
+   <aside id='admin_panel'>
         <ul>
             <li>Home</li>
             <li>Artikler</li>
             <ul>
-                <li>Opret artikel</li>
+                <li><a href="/ny_artikel">Opret artikel</a></li>
                 <li>Rediger</li>
             </ul>
             <li>Navigationsbar</li>
@@ -18,6 +19,8 @@
 <a href="/logout">LOG aF</a>
 
 
-</main>
+</main> 
+</section>
+
 <% include partials/footer.ejs %>
 <% include partials/after-footer.ejs %>
