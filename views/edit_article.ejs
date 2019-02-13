@@ -4,19 +4,58 @@
      <main id="newArticle">
      <h1><%= title %></h1>
 
-    <table>
-        <% results.forEach( result =>{ %>
-            <tr>
-                <td><%= result.heading %></td>
-                <td><%= result.author %></td>
-                <td><a href="/rediger_artikel/<%= result.id %>" class="aBtn">Rediger</a></td>
-                <td><a href="" class="delBtn">Slet</a></td>
-            </tr>
-        <% }) %>
-    </table>
+     <form action="/rediger_artikel/<%= results.id %>" method="patch" id="newArticleForm" class="editArticle" autocomplete="off">
+        <label for="heading">Overskrift</label>
+        <input type="text" name="heading" value="<%= results.heading %>">
+
+        <label for="description">Beskrivelse</label>
+        <textarea name="description" rows="10"><%= results.description %></textarea>
+        
+        <label for="content">Indhold</label>
+        <textarea name="content" rows="10"><%= results.content %></textarea>
+        
+
+        <button type="submit">Gem</button>
+
+     </form>
      
      
      </main> 
      </section>
+     <script>
+     const form = document.querySelector('.editArticle');
+
+form.addEventListener('submit', event => {
+    event.preventDefault();
+    let option = {
+        cache : 'no-cache', 
+        headers : {
+            'content-type' : 'application/json'
+        },
+        method : 'PATCH',
+        mode : 'cors',
+        redirect : 'follow',
+        referrer : 'no-referrer',
+        body : JSON.stringify({
+            heading : form.heading.value,
+            description : form.description.value,
+            content : form.content.value
+        })
+    };
+    const id = window.location.pathname.split('/').pop();
+    const url = `/rediger_artikel/${id}`;
+
+    fetch(url, option)
+    .then(response => {
+        if(response.status === 200){
+            console.log('yes we can');
+            window.location.href = `http://localhost:4040/profile`
+        }else{
+            console.log('nej');
+        }
+    }); 
+});
+
+     </script>
 <% include partials/footer.ejs %>
 <% include partials/after-footer.ejs %>

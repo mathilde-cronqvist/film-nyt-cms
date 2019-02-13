@@ -9,3 +9,15 @@ a{
 textarea{
     resize: none;
 }
+.aBtn{
+    border-radius: 10px;
+    background-color: #1f1c3d;
+}
+.delBtn{
+    border-radius: 10px;
+    background-color: #b32121;
+    
+}
+textarea{
+    font-family: 'Roboto', sans-serif;
+  }

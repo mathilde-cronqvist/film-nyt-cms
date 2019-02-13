@@ -51,7 +51,7 @@ footer{
    margin: 0 auto; 
    width: 40%;
 }
-#newArticleForm{
+#newArticleForm, #editArticleForm{
     display: grid;
     grid-template-columns: 1fr;
     background-color: #505050;

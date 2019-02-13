@@ -6,15 +6,15 @@
 
      <form action="/ny_artikel" method="post" id="newArticleForm" autocomplete="off">
         <label for="heading">Overskrift</label>
-        <input type="text" name="heading" value="<%= results.heading %>">
+        <input type="text" name="heading" >
 
         <label for="description">Beskrivelse</label>
-        <textarea name="description" rows="10"><%= results.description %></textarea>
+        <textarea name="description" rows="10"></textarea>
         
         <label for="content">Indhold</label>
-        <textarea name="content" rows="10"><%= results.content %></textarea>
+        <textarea name="content" rows="10"></textarea>
 
-        <button type="submit"><%= submit %></button>
+        <button type="submit">Opret</button>
 
      </form>
      

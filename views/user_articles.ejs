@@ -1,0 +1,20 @@
+<% include partials/head.ejs %>
+<section class="profile">
+    <% include partials/admin-panel.ejs %>
+     <main id="newArticle">
+     <h1><%= title %></h1>
+
+ 
+        <% results.forEach( result =>{ %>
+            <div class="articles">
+                <h2><%= result.heading %></h2>
+                <p><%= result.description %></p>
+            </div>
+        <% }) %>
+
+     
+     
+     </main> 
+     </section>
+<% include partials/footer.ejs %>
+<% include partials/after-footer.ejs %>

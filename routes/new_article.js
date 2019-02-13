@@ -17,7 +17,7 @@ module.exports = function (app){
         });
     });
     app.post('/ny_artikel', (req, res) => {
-		db.query(`INSERT INTO articles SET heading =?,  description = ?, content =?`, [req.fields.heading, req.fields.description, req.fields.content], function(err, results){
+		db.query(`INSERT INTO articles SET heading =?, description = ?, content =? author = ?`, [req.fields.heading, req.fields.description, req.fields.content, req.session.user], function(err, results){
             if(err) throw err;
 			res.redirect('/profile');
 	    });

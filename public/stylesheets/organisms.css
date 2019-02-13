@@ -27,9 +27,7 @@
 #newArticleForm input, #newArticleForm textarea{
   padding: 2%
 }
-#newArticleForm textarea{
-  font-family: 'Roboto', sans-serif;
-}
+
 
 #login_form ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     color:#ebebeb;
@@ -66,4 +64,28 @@ select:-webkit-autofill:focus {
   border: none;
   -webkit-box-shadow: none;
   transition: background-color 5000s ease-in-out 0s;
+}
+.articleListTable{
+ border-collapse: collapse;
+  background-color: #505050;
+  border-radius: 10px;
+  border-right: solid 5px #353535;
+  border-top: solid 3px #353535;
+  width: 100%;
+}
+.articleListTable td{
+  padding: 2%;
+  padding-right: 10px;
+}
+.articleListTable tr:nth-child(even){
+  background-color: #353535;
+}
+.articles{
+  background-color: #505050;
+  border-radius: 10px;
+  border-right: solid 5px #353535;
+  border-top: solid 3px #353535;
+  padding: 3%;
+  width: 100%;
+  margin-bottom: 2em; 
 }

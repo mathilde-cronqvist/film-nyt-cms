@@ -11,16 +11,17 @@ module.exports = function (app){
 	} );
 
 	app.post('/auth/login', (req, res, next) => {
-			db.query('SELECT id FROM film_nyt.users WHERE username = ? AND passphrase = ?', [req.fields.username, req.fields.passphrase], (err, result) => {
-				console.log([req.fields.username, req.fields.passphrase]);
-				console.log(result[0]);
+			db.query('SELECT id, passphrase FROM film_nyt.users WHERE username = ?', [req.fields.username], (err, result) => {
 				if (err) return next(`${err} at db.query (${__filename}:9:5)`);
-				if (result.length !== 1) {
+				if (bcrypt.compareSync(req.fields.passphrase, result[0].passphrase)) {
+					req.session.user = result[0].id;
+					app.locals.login = true;
+
+					res.redirect('/profile');
+				}else{
 					res.redirect('/login?status=badcredentials');
 					return;
 				}
-				req.session.user = result[0].id;
-				res.redirect('/profile');
 			});
 	});
 
@@ -39,12 +40,20 @@ module.exports = function (app){
 
 	app.post('/auth/opret', (req, res, next) => {
 			console.log("signup commencing");
-			db.query(`INSERT INTO film_nyt.users (username, email, passphrase)
-								VALUES (?, ?, ?) `, [req.fields.username, req.fields.email, req.fields.passphrase], (err, results) => {
-			res.redirect('/profile');
-			});
+			let success = true;
+			if(success){
+				let hashPassphrase = bcrypt.hashSync(req.fields.passphrase, 10);
+				db.query(`INSERT INTO film_nyt.users (username, email, passphrase, roles_id)
+								VALUES (?, ?, ?, 3) `, [req.fields.username, req.fields.email, hashPassphrase], (err, results) => {
+			
+				res.redirect('/login');
+				});
+			}else{
+				res.render('opret', {title: 'fejl'})
+			}
+			
 	});
 
-	
+	console.log(bcrypt.hashSync('1234', 10));
 
 }

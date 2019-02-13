@@ -9,6 +9,16 @@ module.exports = function (app){
 			next();
 		}
     });
+
+
+
+    app.get('/rediger_artikel', (req, res, next) =>{
+        db.query(`SELECT * FROM film_nyt.articles`, function (err, results){
+            if(err) res.send(err);
+            res.render('article_list', {title : 'Rediger Artikel', 'results' : results});
+        });
+    });    
+    
     app.use('/rediger_artikel/:id', (req, res, next) => {
 		if (!req.session.user) {
 			res.redirect('/login');
@@ -18,19 +28,28 @@ module.exports = function (app){
 		}
 	});
 
-
-    app.get('/rediger_artikel', (req, res, next) =>{
-        db.query(`SELECT * FROM film_nyt.articles`, function (err, results){
-            if(err) res.send(err);
-            res.render('edit_article', {title : 'Rediger Artikel', 'results' : results});
-        });
-    });
-
     app.get('/rediger_artikel/:id', (req, res, next) =>{
-        db.query(`SELECT * FROM film_nyt.articles`,[`${req.params.id}`], function (err, results){
+        db.query(`SELECT * FROM film_nyt.articles WHERE id = ?`,[`${req.params.id}`], function (err, results){
             if(err) res.send(err);
-            res.render('new_article', {title : 'Rediger Artikel', 'submit' : 'Gem' ,'results' : results[0]});
+            res.render('edit_article', {title : 'Rediger Artikel', 'results' : results[0]});
         });
+    }); 
+
+    app.patch('/rediger_artikel/:id', (req, res, next) => {
+        const id = req.params.id;
+        const heading = req.fields.heading;
+		const description = req.fields.description;
+		const content = req.fields.content;
+        db.query(`UPDATE articles SET heading = ?, description = ?, content = ? WHERE id  = ?`,
+            [heading, description, content, id], function (err, results){
+                if(err){
+                    throw err;
+                }
+                res.status(200);
+                res.end();
+        })
     });
+    
+
  
 };
