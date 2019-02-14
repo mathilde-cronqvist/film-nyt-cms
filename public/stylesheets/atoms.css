@@ -21,3 +21,10 @@ textarea{
 textarea{
     font-family: 'Roboto', sans-serif;
   }
+
+.errorMessage{
+    color: rgb(192, 192, 192);
+    text-shadow: none;
+    background-color: #585858;
+    border-radius: 5px;
+}

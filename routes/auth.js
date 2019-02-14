@@ -1,6 +1,7 @@
 const db = require('../config/database')();
 const bcrypt = require('bcryptjs');
 
+
 module.exports = function (app){
     app.get('/login', (req, res, next) => {
 		if (req.query.status && req.query.status === 'badcredentials') {
@@ -16,7 +17,8 @@ module.exports = function (app){
 				if (bcrypt.compareSync(req.fields.passphrase, result[0].passphrase)) {
 					req.session.user = result[0].id;
 					app.locals.login = true;
-
+					console.log(result[0]);
+					
 					res.redirect('/profile');
 				}else{
 					res.redirect('/login?status=badcredentials');
