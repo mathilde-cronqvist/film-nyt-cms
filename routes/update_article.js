@@ -50,6 +50,14 @@ module.exports = function (app){
         })
     });
     
+    app.delete('/rediger_artikel/:id', (req, res, next) => {
+        db.query(`DELETE FROM articles WHERE id = ?`, [req.params.id], (err, results) => {
+            if(err) throw err;
+
+            res.status(200);
+            res.end();
+        })
+    })
 
  
 };
