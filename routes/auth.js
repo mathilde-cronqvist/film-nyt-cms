@@ -11,6 +11,7 @@ module.exports = function (app){
 		res.render('login', { title: 'Log ind' });
 	} );
 
+	// TODO : Lav login, så man kan logge ind med andre brugere end Admin
 	app.post('/auth/login', (req, res, next) => {
 			db.query('SELECT id, passphrase FROM film_nyt.users WHERE username = ?', [req.fields.username], (err, result) => {
 				if (err) return next(`${err} at db.query (${__filename}:9:5)`);
@@ -56,6 +57,6 @@ module.exports = function (app){
 			
 	});
 
-	console.log(bcrypt.hashSync('1234', 10));
+	//console.log(bcrypt.hashSync('1234', 10));
 
 }
