@@ -11,12 +11,6 @@
 		</label>
 	</div>
 	<div class="inputGroup">
-		<label>Profilbillede
-			<input type="file" id="file" class="profileFileSelect">
-		</label>
-		<img src="" alt="Standard profilbillede" class="profileImage">
-	</div>
-	<div class="inputGroup">
 		<label>Fornavn
 			<input type="text" name="firstname" value="<%= results.firstname %>">
 		</label>
@@ -25,12 +19,6 @@
 		<label>
 			Efternavn
 			<input type="text" name="lastname" value="<%= results.lastname %>">
-		</label>
-	</div>
-	<div class="inputGroup">
-		<label>
-			Email
-			<input type="text" name="email" value="<%= results.email %>">
 		</label>
 	</div>
 
@@ -45,41 +33,39 @@
 </form>
 
 <script>
-
 const form = document.querySelector('.profileForm');
 
 form.addEventListener('submit', event => {
-    event.preventDefault();
-    let option = {
-        cache : 'no-cache', 
-        headers : {
-            'content-type' : 'application/json'
-        },
-        method : 'PATCH',
-        mode : 'cors',
-        redirect : 'follow',
-        referrer : 'no-referrer',
-        body : JSON.stringify({
-            firstname : form.firstname.value,
-            lastname : form.lastname.value,
-            bio : form.bio.value
-        })
-    };
-    const id = window.location.pathname.split('/').pop();
-    const url = `/rediger_artikel/${id}`;
+event.preventDefault();
+let option = {
+	cache : 'no-cache', 
+	headers : {
+		'content-type' : 'application/json'
+	},
+	method : 'PATCH',
+	mode : 'cors',
+	redirect : 'follow',
+	referrer : 'no-referrer',
+	body : JSON.stringify({
+		firstname : form.firstname.value,
+		lastname : form.lastname.value,
+		bio : form.bio.value
+	})
+};
 
-    fetch(url, option)
-    .then(response => {
-        if(response.status === 200){
-            console.log('yes we can');
-            window.location.href = `http://localhost:4040/profile`
-        }else{
-            console.log('nej');
-        }
-    }); 
+fetch(`/profile/settings`, option)
+.then(response => {
+	if(response.status === 200){
+		console.log('yes we can');
+		window.location.href = `http://localhost:4040/profile/settings`
+	}else{
+		console.log('nej');
+	}
+}); 
 });
-</script>
+		
 
+</script>
 </main> 
 </section>
 

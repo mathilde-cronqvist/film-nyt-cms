@@ -16,7 +16,7 @@ module.exports = function (app){
         db.query(`SELECT * FROM film_nyt.articles`, function (err, results){
             if(err) res.send(err);
             res.render('article_list', {title : 'Rediger Artikel', 'results' : results});
-        });
+        }); 
     });    
     
     app.use('/rediger_artikel/:id', (req, res, next) => {
@@ -52,7 +52,7 @@ module.exports = function (app){
     
     app.delete('/rediger_artikel/:id', (req, res, next) => {
         db.query(`DELETE FROM articles WHERE id = ?`, [req.params.id], (err, results) => {
-            if(err) throw err;
+            if(err) throw new Error('Kan ikke slette artikel');
 
             res.status(200);
             res.end();
