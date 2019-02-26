@@ -3,7 +3,9 @@
     <% include partials/admin-panel.ejs %>
      <main id="newArticle">
      <h1><%= title %></h1>
-
+        <div class="opretBtn">
+            <a href="/ny_artikel">Opret artikel</a>
+        </div>
  
         <% results.forEach( result =>{ %>
             <div class="articles">

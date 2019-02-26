@@ -4,14 +4,13 @@ const bcrypt = require('bcryptjs');
 
 module.exports = function (app){
     app.get('/login', (req, res, next) => {
-		// if (req.query.status && req.query.status === 'badcredentials') {
-		// 	console.log("bad badcredentials");
-		// 	res.locals.status = 'ugyldigt brugernavn eller adgangskode';
-		// }
+		if (req.query.status && req.query.status === 'badcredentials') {
+			console.log("bad badcredentials");
+			res.locals.status = 'ugyldigt brugernavn eller adgangskode';
+		}
 		res.render('login', { title: 'Log ind' });
 	} );
 
-	// TODO : Lav login, så man kan logge ind med andre brugere end Admin
 	app.post('/auth/login', (req, res, next) => {
 			db.query('SELECT id, passphrase, username FROM film_nyt.users WHERE username = ?', [req.fields.username], (err, result) => {
 				if (err) return next(`${err} at db.query (${__filename}:9:5)`);

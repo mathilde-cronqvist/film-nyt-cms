@@ -9,14 +9,15 @@ a{
 textarea{
     resize: none;
 }
-.aBtn{
+.aBtn, .delBtn{
     border-radius: 10px;
     background-color: #1f1c3d;
+    color: #FFF;
+    border:none;
+    cursor: pointer;
 }
 .delBtn{
-    border-radius: 10px;
     background-color: #b32121;
-    
 }
 textarea{
     font-family: 'Roboto', sans-serif;
@@ -27,4 +28,16 @@ textarea{
     text-shadow: none;
     background-color: #585858;
     border-radius: 5px;
+}
+.opretBtn{
+    text-align: right;
+    margin: 1em 0;
+    width: 105%;
+}
+.opretBtn a{
+    background-color: rgb(85, 190, 102);
+    display:inline;
+    padding: 2%;
+    border-radius: 10px; 
+    
 }

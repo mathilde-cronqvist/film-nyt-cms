@@ -69,8 +69,6 @@ select:-webkit-autofill:focus {
  border-collapse: collapse;
   background-color: #505050;
   border-radius: 10px;
-  border-right: solid 5px #353535;
-  border-top: solid 3px #353535;
   width: 100%;
 }
 .articleListTable td{
@@ -88,4 +86,9 @@ select:-webkit-autofill:focus {
   padding: 3%;
   width: 100%;
   margin-bottom: 2em; 
+}
+
+.dataTable{
+  width: 80%;
+  margin: 0 auto;
 }

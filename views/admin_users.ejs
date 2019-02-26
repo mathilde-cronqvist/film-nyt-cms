@@ -1,9 +1,14 @@
 <% include partials/head.ejs %>
 <section class="profile">
     <% include partials/admin-panel.ejs %>
-    <main id="newArticle">
+    <main class="dataTable">
     <h1><%= title %></h1>
     <table class="articleListTable">
+        <tr>
+            <td>Brugernavn</td>
+            <td>Email</td>
+
+        </tr>
             <% results.forEach( result =>{ %>
                 <tr>
                     <td><%= result.username %></td>
