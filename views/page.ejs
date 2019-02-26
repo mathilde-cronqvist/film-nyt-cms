@@ -6,7 +6,12 @@
                 <h2>Artikler</h2>
 
         </header>
-        
+        <% results.forEach( result =>{ %>
+                <div class="articles">
+                    <h2><%= result.heading %></h2>
+                    <p><%= result.description %></p>
+                </div>
+        <% }) %>
 
     
     
