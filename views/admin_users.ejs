@@ -9,7 +9,7 @@
                     <td><%= result.username %></td>
                     <td><%= result.email %></td>
                     <td><a href="/admin/brugere/<%= result.id %>" class="aBtn">Rediger</a></td>
-                    <td class="delBtn delBtnArticle">Slet</td>
+                    <td><a href="#" class="delBtn delBtnArticle" data-id="<%= result.id %>">Slet</a></td>
                 </tr>
             <% }) %>
         </table>
@@ -18,6 +18,31 @@
     </main> 
     </section>
 
+<script>
+        document.addEventListener('DOMContentLoaded', () =>{
+            const DelBtn = document.querySelectorAll('.delBtnArticle');
+            DelBtn.forEach(btn => {
+               btn.addEventListener('click', 
+                event => {
+        
+                    const id = event.target.dataset.id;
+        
+                    fetch(`/admin/brugere/${id}`, {
+                        'method': 'DELETE'
+                    })
+                    .then(response => {
+                        if(response.status === 200){
+                            window.location.reload();
+                        }
+                    });
+        
+                }); 
+            });
+        
+        
+        
+        });
+</script>
 
 <% include partials/footer.ejs %>
 <% include partials/after-footer.ejs %>

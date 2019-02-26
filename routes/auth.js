@@ -4,16 +4,16 @@ const bcrypt = require('bcryptjs');
 
 module.exports = function (app){
     app.get('/login', (req, res, next) => {
-		if (req.query.status && req.query.status === 'badcredentials') {
-			console.log("bad badcredentials");
-			res.locals.status = 'ugyldigt brugernavn eller adgangskode';
-		}
+		// if (req.query.status && req.query.status === 'badcredentials') {
+		// 	console.log("bad badcredentials");
+		// 	res.locals.status = 'ugyldigt brugernavn eller adgangskode';
+		// }
 		res.render('login', { title: 'Log ind' });
 	} );
 
 	// TODO : Lav login, så man kan logge ind med andre brugere end Admin
 	app.post('/auth/login', (req, res, next) => {
-			db.query('SELECT id, passphrase FROM film_nyt.users WHERE username = ?', [req.fields.username], (err, result) => {
+			db.query('SELECT id, passphrase, username FROM film_nyt.users WHERE username = ?', [req.fields.username], (err, result) => {
 				if (err) return next(`${err} at db.query (${__filename}:9:5)`);
 				if (bcrypt.compareSync(req.fields.passphrase, result[0].passphrase)) {
 					req.session.user = result[0].id;
@@ -49,7 +49,10 @@ module.exports = function (app){
 				db.query(`INSERT INTO film_nyt.users (username, email, passphrase, roles_id)
 								VALUES (?, ?, ?, 3) `, [req.fields.username, req.fields.email, hashPassphrase], (err, results) => {
 			
-				res.redirect('/login');
+					db.query(`INSERT INTO profiles (user_id) VALUES (?)`, [results.insertId], (err, results) =>{
+						if(err) throw err;
+						res.redirect('/login');
+					})
 				});
 			}else{
 				res.render('opret', {title: 'fejl'})

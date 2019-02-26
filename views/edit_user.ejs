@@ -2,9 +2,9 @@
 <section class="profile">
     <% include partials/admin-panel.ejs %>
 
-<main>
-<h1>PROFIL</h1>
-<form action="/profile/settings" method="patch" class="profileForm" autocomplete="off">
+<main id="newArticle">
+<h1><%= title %></h1>
+<form action="/admin/brugere/<%= results.id %>" method="patch" class="editUserForm" id="newArticleForm" autocomplete="off">
 	<div class="inputGroup">
 		<label>Brugernavn
 			<input type="text" name="username" value="<%= results.username %>" disabled>
@@ -21,21 +21,14 @@
 			<input type="text" name="lastname" value="<%= results.lastname %>">
 		</label>
 	</div>
-
 	<div class="inputGroup">
 		<label>
 			Beskrivelse
-			<textarea name="bio"><%= results.bio %></textarea>
+			<textarea name="bio" rows="5"><%= results.bio %></textarea>
 		</label>
     </div>
     
-	<div class="inputGroup">
-            <label>
-                Email
-                <input type="text" name="email" value="<%= results.email %>">
-            </label>
-        </div>
-    <div>
+
         <label>
             Bruger rolle
             <select name='role'>
@@ -44,14 +37,48 @@
                 <option value=100>Super admin</option>
             </select>
         </label>
-      
     </div>
 	<button type="submit">Gem</button>
-
 </form>
-
     </main> 
-    </section>
+</section>
+
+<script>
+        const form = document.querySelector('.editUserForm');
+        
+        form.addEventListener('submit', event => {
+        event.preventDefault();
+        let option = {
+            cache : 'no-cache', 
+            headers : {
+                'content-type' : 'application/json'
+            },
+            method : 'PATCH',
+            mode : 'cors',
+            redirect : 'follow',
+            referrer : 'no-referrer',
+            body : JSON.stringify({
+                firstname : form.firstname.value,
+                lastname : form.lastname.value,
+                bio : form.bio.value,
+                role : form.role.value
+
+            })
+        };
+        
+        fetch(`/admin/brugere`, option)
+        .then(response => {
+            if(response.status === 200){
+                console.log('yes we can');
+                window.location.href = `http://localhost:4040/admin/brugere`
+            }else{
+                console.log('nej');
+            }
+        }); 
+    });
+                
+        
+</script>
 
 
 <% include partials/footer.ejs %>
