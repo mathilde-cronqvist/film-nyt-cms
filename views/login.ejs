@@ -2,15 +2,19 @@
 
 <main>
     <form id="login_form" action="/auth/login" method="POST" autocomplete="off">
-      
+    
     
         <div class="inputGroup">
             <h1><%= title %></h1>
-            <input type="text" name="username" id="username" value="admin" placeholder="Brugernavn">
-            <input type="password" name="passphrase" id="passphrase" value="1234" placeholder="Adgangskode">
+            <input type="text" name="username" id="username" value="admin" placeholder="Brugernavn" required>
+            <input type="password" name="passphrase" id="passphrase" value="1234" placeholder="Adgangskode" required>
+            
+            <% if (typeof status != 'undefined') { %>
+            <span class="errorMessage"><%= status %></span>
+            <% } %>
+            
             <button type="submit">LOG IND</button>
 
-            <p class="errorMessage"></p>
             
 
         </div>

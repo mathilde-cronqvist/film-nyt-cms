@@ -1,0 +1,20 @@
+<% include partials/head.ejs %>
+<section class="profile">
+    <% include partials/admin-panel.ejs %>
+    <main id="newArticle">
+        <h1><%= title %></h1>
+
+        <table class="dataTable articleListTable">
+            <% results.forEach( result =>{ %>
+                <tr>
+                    <td><%= result.sitename %></td>
+                    <td><a href=""><button class="aBtn">Rediger</button></a></td>
+                    <td><button class="delBtn" data-id="<%= result.id %>">Slet</button></td>
+                </tr>
+            <% }) %>
+        </table>
+
+    </main> 
+    </section>
+<% include partials/footer.ejs %>
+<% include partials/after-footer.ejs %>
