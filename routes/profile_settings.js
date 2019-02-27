@@ -1,4 +1,5 @@
 const db = require('../config/database')();
+// const fs = require('fs');
 
 module.exports = function(app){
     app.use('/profile/settings', (req, res, next) => {
@@ -28,5 +29,30 @@ module.exports = function(app){
 			res.end();
         })
     });
+    app.patch('/profile/settings/image', (req, res, next) => {
+        if(!req.files || !req.files.photo){
+            return next(`File not found (${__filename}:29:5)`);
+        }
+
+        const file = req.file.photo;
+        const renamedFilename = `${Date.now()}_${__filename}`;
+
+        fs.readFile(file.path, (err, data) =>{
+            if (err) return next(`${err} at fs.readFile (${__filename}:35:5)`);
+            fs.writeFile(`./public/uploads/${renamedFilename}`, data, err => {
+                if (err) return next(`${err} at fs.writeFile (${__filename}:37:7)`);
+				db.query('INSERT INTO photos SET name = ?', [renamedFilename], (err, result) => {
+                    if (err) return next(`${err} at db.query (${__filename}:39:9)`);
+					db.query('UPDATE profiles SET photos_id = ? WHERE users_id = ?', [result.insertId, req.session.user], (err, result) => {
+                        if (err) return next(`${err} at db.query (${__filename}:41:11)`);
+						res.status(200);
+						res.json({
+							photo: renamedFilename
+						});
+                    });
+                });
+            });
+        });
+    })
 
 }

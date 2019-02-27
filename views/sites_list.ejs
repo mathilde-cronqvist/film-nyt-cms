@@ -3,12 +3,15 @@
     <% include partials/admin-panel.ejs %>
     <main id="newArticle">
         <h1><%= title %></h1>
+        <div class="opretBtn">
+                <a href="/admin/sider/opret">Opret side</a>
+        </div>
 
         <table class="dataTable articleListTable">
             <% results.forEach( result =>{ %>
                 <tr>
                     <td><%= result.sitename %></td>
-                    <td><a href=""><button class="aBtn">Rediger</button></a></td>
+                    <td><a href="/admin/sider/<%= result.id %>"><button class="aBtn">Rediger</button></a></td>
                     <td><button class="delBtn" data-id="<%= result.id %>">Slet</button></td>
                 </tr>
             <% }) %>

@@ -28,6 +28,13 @@
 			<textarea name="bio"><%= results.bio %></textarea>
 		</label>
 	</div>
+	<div class="inputGroup">
+		<label>
+			Profilbillede
+			<input type="file" id="file" class="profileFileSelect">
+		</label>
+		<img src="/uploads/<%= user.photo %>" alt="Standard profilbillede" class="profileImage" onchange="return fileValidation()">
+	</div>
 	<button type="submit">Gem</button>
 
 </form>
@@ -62,6 +69,35 @@ fetch(`/profile/settings`, option)
 		console.log('nej');
 	}
 }); 
+
+const file = document.querySelector('.profileFileSelect');
+file.addEventListener('change', function (event) {
+	const formData = new FormData();
+	formData.append('photo', this.files[0]);
+	fetch('/profile/settings/image', {
+		method: 'PATCH',
+		body: formData
+	})
+		.then(response => {
+			if (response.status === 200) return response.json();
+		})
+		.then(data => {
+			const img = document.querySelector('.profileImage');
+			img.src = `/uploads/${data.photo}`;
+		});
+});
+function fileValidation(){
+    var fileInput = document.getElementById('file');
+    var filePath = fileInput.value;
+    var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+    if(!allowedExtensions.exec(filePath)){
+        alert('Please upload file having extensions .jpeg/.jpg/.png only.');
+        fileInput.value = '';
+        return false;
+    }
+};
+
+
 });
 		
 
