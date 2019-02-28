@@ -1,0 +1,21 @@
+.tableCap{
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #000;
+}
+body{
+    position: relative;
+}
+.confirmBox{
+    position: absolute;
+	height: 30vh;
+	width: 30vw;
+	border: 2px solid black;
+	border-radius: 7px;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: white;
+	padding: 1em;
+	box-sizing: border-box;
+}

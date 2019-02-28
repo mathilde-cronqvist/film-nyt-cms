@@ -12,19 +12,43 @@ module.exports = function (app){
 	} );
 
 	app.post('/auth/login', (req, res, next) => {
-			db.query('SELECT id, passphrase, username FROM film_nyt.users WHERE username = ?', [req.fields.username], (err, result) => {
+		let success = true;
+		let errorMessage;
+		if(!req.fields.username || !req.fields.passphrase){
+			success = false;
+			errorMessage = 'Felter tomme';
+		}
+		if(success){
+			db.query(`SELECT users.id, passphrase, username, users.roles_id, roles.level FROM film_nyt.users
+			INNER JOIN roles ON users.roles_id = roles.id
+            WHERE username = ?`, [req.fields.username], (err, result) => {
 				if (err) return next(`${err} at db.query (${__filename}:9:5)`);
-				if (bcrypt.compareSync(req.fields.passphrase, result[0].passphrase)) {
-					req.session.user = result[0].id;
-					app.locals.login = true;
-					console.log(result[0]);
+				if (result.length == 0){
+					res.render('login', {'errorMessage' : 'Brugernavn eller adgangskode er forkert'});
+					return;
+				} else if(result.length == 1){
+					if (bcrypt.compareSync(req.fields.passphrase, result[0].passphrase)) {
+						req.session.user = result[0].id;
+						req.session.roles_id = result[0].roles_id;
+						req.session.level = result[0].level;
+						app.locals.level = result[0].level;
+						app.locals.login = true;
+						console.log(result[0]);
 					
 					res.redirect('/profile');
-				}else{
-					res.redirect('/login?status=badcredentials');
-					return;
+					}else{
+						res.redirect('/login?status=badcredentials');
+						return;
+					}
 				}
+				
 			});
+
+		} else {
+			res.render('login', {...req.fields, errorMessage})
+		}
+
+
 	});
 
 	app.get('/auth/logout', (req, res, next) => {

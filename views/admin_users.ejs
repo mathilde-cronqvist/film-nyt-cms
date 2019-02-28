@@ -4,7 +4,7 @@
     <main class="dataTable">
     <h1><%= title %></h1>
     <table class="articleListTable">
-        <tr>
+        <tr class="tableCap">
             <td>Brugernavn</td>
             <td>Email</td>
 
@@ -13,8 +13,8 @@
                 <tr>
                     <td><%= result.username %></td>
                     <td><%= result.email %></td>
-                    <td><a href="/admin/brugere/<%= result.id %>" class="aBtn">Rediger</a></td>
-                    <td><a href="#" class="delBtn delBtnArticle" data-id="<%= result.id %>">Slet</a></td>
+                    <td><a href="/admin/brugere/<%= result.id %>"><button class="aBtn">Rediger</button></a></td>
+                    <td><button class="delBtn delBtnArticle" data-id="<%= result.id %>">Slet</button></td>
                 </tr>
             <% }) %>
         </table>

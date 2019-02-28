@@ -21,32 +21,92 @@
 
 <script>
 const delBoxConfirm = function (id){
-        const box = document.createElement('div');
-        box.setAttribute('class', confirmBox);
-    }
-document.addEventListener('DOMContentLoaded', () =>{
-    const DelBtn = document.querySelectorAll('.delBtnArticle');
-    DelBtn.forEach(btn => {
-       btn.addEventListener('click', 
-        event => {
 
-            const id = event.target.dataset.id;
+    const box = document.createElement('div');
+    box.setAttribute('class', confirmBox);
 
-            fetch(`/rediger_artikel/${id}`, {
+    const p = document.createElement('p');
+    const alertText = document.createTextNode(`Er du sikker på du vil slette?`);
+
+    p.appendChild(alertText);
+    box.appendChild(p);
+
+    const yesBtn = document.createElement('button');
+    yesBtn.setAttribute('class', 'yesBtn');
+    const yes = document.createTextNode('Ja');
+    yesBtn.appendChild(yes);
+
+    const noBtn = document.createElement('button');
+    noBtn.setAttribute('class', 'noBtn');
+    const no = document.createTextNode('Nej');
+    noBtn.appendChild(no);
+
+    yesBtn.addEventListener('click', () =>{
+        fetch(`/rediger_artikel/${id}`, {
                 'method': 'DELETE'
             })
             .then(response => {
                 if(response.status === 200){
                     window.location.reload();
                 }
-            });
-
-        }); 
+            })
+            .catch(error =>{
+                console.log(error);
+                removeBox();
+            })
     });
 
+    noBtn.addEventListener('click', () => {
+        removeBox();
+    });
+
+    box.appendChild(yesBtn);
+    box.appendChild(noBtn);
+
+    const body = document.querySelector('body');
+    body[0].appendChild(overlay);
+    body[0].appendChild(box);
+
+const removeBox = function(){
+    Element.prototype.remove = function(){
+        this.parentElement.removeChild(this);
+    }
+    document.querySelector('.confirmBox').remove();
+    document.querySelector('.overlay').remove();
+}
+
+document.addEventListener('DOMContentLoaded', () =>{
+    const delLinks = document.querySelectorAll('.delBtnArticle');
+        for(link of delLinks){
+            link.addEventListener('click', event => {
+                event.preventDefault();
+                delBoxConfirm(this.dataset.id);
+            } )
+        }
+    });
+}
+    // const DelBtn = document.querySelectorAll('.delBtnArticle');
+    // DelBtn.forEach(btn => {
+    //    btn.addEventListener('click', 
+    //     event => {
+
+    //         const id = event.target.dataset.id;
+
+    //         fetch(`/rediger_artikel/${id}`, {
+    //             'method': 'DELETE'
+    //         })
+    //         .then(response => {
+    //             if(response.status === 200){
+    //                 window.location.reload();
+    //             }
+    //         });
+
+    //     }); 
+    // });
 
 
-});
+
+
 
 
 

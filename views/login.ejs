@@ -8,10 +8,12 @@
             <h1><%= title %></h1>
             <input type="text" name="username" id="username" value="admin" placeholder="Brugernavn" required>
             <input type="password" name="passphrase" id="passphrase" value="1234" placeholder="Adgangskode" required>
-            
-            <% if (typeof status != 'undefined') { %>
-            <span class="errorMessage"><%= status %></span>
-            <% } %>
+            <p class="errorMessage">
+
+                 <!-- <% (typeof errorMessage != 'undefined') ? errorMessage : '' %> -->
+        
+            </p>
+           
             
             <button type="submit">LOG IND</button>
 
