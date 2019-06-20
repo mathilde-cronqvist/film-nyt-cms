@@ -31,9 +31,9 @@
 	<div class="inputGroup">
 		<label>
 			Profilbillede
-			<input type="file" id="file" class="profileFileSelect">
+			<input type="file" name="image" id="file" class="profileFileSelect">
 		</label>
-		<img src="/uploads/<%= results.photo %>" alt="Standard profilbillede" class="profileImage" onchange="return fileValidation()">
+		<img src="/uploads/<%= results.photos %>" alt="Standard profilbillede" class="profileImage">
 	</div>
 	<button type="submit">Gem</button>
 
@@ -86,16 +86,16 @@ file.addEventListener('change', function (event) {
 			img.src = `/uploads/${data.photo}`;
 		});
 });
-function fileValidation(){
-    var fileInput = document.getElementById('file');
-    var filePath = fileInput.value;
-    var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
-    if(!allowedExtensions.exec(filePath)){
-        alert('Please upload file having extensions .jpeg/.jpg/.png only.');
-        fileInput.value = '';
-        return false;
-    }
-};
+// function fileValidation(){
+//     var fileInput = document.getElementById('file');
+//     var filePath = fileInput.value;
+//     var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+//     if(!allowedExtensions.exec(filePath)){
+//         alert('Please upload file having extensions .jpeg/.jpg/.png only.');
+//         fileInput.value = '';
+//         return false;
+//     }
+// };
 
 
 });

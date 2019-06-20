@@ -1,5 +1,5 @@
 const db = require('../config/database')();
-// const fs = require('fs');
+const fs = require('fs');
 
 module.exports = function(app){
     app.use('/profile/settings', (req, res, next) => {
@@ -15,7 +15,8 @@ module.exports = function(app){
         db.query(`SELECT users.username AS username, profiles.firstname AS firstname, profiles.lastname AS lastname, profiles.bio AS bio, profiles.user_id AS userid, users.id AS id, users.roles_id AS userrole
         FROM profiles
         INNER JOIN users
-        ON profiles.user_id = users.id WHERE users.id = ?;`, [req.session.user], function (err, results){
+        ON profiles.user_id = users.id
+        WHERE users.id = ?;`, [req.session.user], function (err, results){
             if (err) return next(`${err} at db.query (${__filename}:15:5)`);
 			console.log(results)
             res.render('profile_settings', {'title' : 'Profil', 'results' : results[0]});
@@ -30,11 +31,11 @@ module.exports = function(app){
         })
     });
     app.patch('/profile/settings/image', (req, res, next) => {
-        if(!req.files || !req.files.photo){
+        if(!req.files || !req.files.image){
             return next(`File not found (${__filename}:29:5)`);
         }
 
-        const file = req.file.photo;
+        const file = req.file.image;
         const renamedFilename = `${Date.now()}_${__filename}`;
 
         fs.readFile(file.path, (err, data) =>{
@@ -43,16 +44,26 @@ module.exports = function(app){
                 if (err) return next(`${err} at fs.writeFile (${__filename}:37:7)`);
 				db.query('INSERT INTO photos SET name = ?', [renamedFilename], (err, result) => {
                     if (err) return next(`${err} at db.query (${__filename}:39:9)`);
-					db.query('UPDATE profiles SET photos_id = ? WHERE users_id = ?', [result.insertId, req.session.user], (err, result) => {
+					db.query('UPDATE profiles SET photos_id = ? WHERE user_id = ?', [result.insertId, req.session.user], (err, result) => {
                         if (err) return next(`${err} at db.query (${__filename}:41:11)`);
 						res.status(200);
 						res.json({
-							photo: renamedFilename
+							image: renamedFilename
 						});
                     });
                 });
             });
         });
     })
+    // app.patch('/profile/settings/image', async (req, res, next) => {
+    //     if(!/image/.test(req.files.photo.type)){
+    //         return res.send('Filen du uploadede er ikke en billedefil');
+    //     }
+    //     try{
+    //         const data = fs.readFileSync(req.files.photo)
+    //     } catch (error) {
+
+    //     }
+    // });
 
 }

@@ -28,7 +28,6 @@
 		</label>
     </div>
     
-
         <label>
             Bruger rolle
             <select name='role'>
@@ -37,7 +36,6 @@
                 <option value=100>Super admin</option>
             </select>
         </label>
-    </div>
 	<button type="submit">Gem</button>
 </form>
     </main> 
@@ -65,12 +63,18 @@
 
             })
         };
+
+        const id = window.location.pathname.split('/').pop();
+        const url = `/admin/brugere/${id}`;
+
+        console.log(id);
+        console.log(url);
         
-        fetch(`/admin/brugere`, option)
+        fetch(url, option)
         .then(response => {
             if(response.status === 200){
                 console.log('yes we can');
-                window.location.href = `http://localhost:4040/admin/brugere`
+                window.location.href = `http://localhost:4041/admin/brugere`
             }else{
                 console.log('nej');
             }

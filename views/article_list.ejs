@@ -14,7 +14,7 @@
             </tr>
         <% }) %>
     </table>
-     
+     <!-- <div class="confirmBox"></div> -->
     </main> 
     </section>
 
@@ -63,16 +63,14 @@ const delBoxConfirm = function (id){
     box.appendChild(yesBtn);
     box.appendChild(noBtn);
 
-    const body = document.querySelector('body');
-    body[0].appendChild(overlay);
-    body[0].appendChild(box);
+    const main = document.querySelector('main');
+    main[0].appendChild(box);
 
 const removeBox = function(){
     Element.prototype.remove = function(){
         this.parentElement.removeChild(this);
     }
     document.querySelector('.confirmBox').remove();
-    document.querySelector('.overlay').remove();
 }
 
 document.addEventListener('DOMContentLoaded', () =>{
@@ -103,12 +101,6 @@ document.addEventListener('DOMContentLoaded', () =>{
 
     //     }); 
     // });
-
-
-
-
-
-
 
 </script>
 

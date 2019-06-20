@@ -6,14 +6,9 @@
     
         <div class="inputGroup">
             <h1><%= title %></h1>
-            <input type="text" name="username" id="username" value="admin" placeholder="Brugernavn" required>
-            <input type="password" name="passphrase" id="passphrase" value="1234" placeholder="Adgangskode" required>
-            <p class="errorMessage">
-
-                 <!-- <% (typeof errorMessage != 'undefined') ? errorMessage : '' %> -->
-        
-            </p>
-           
+            <input type="text" name="username" id="username" data-validate="username" value="admin" placeholder="Brugernavn">
+            <input type="password" name="passphrase" id="passphrase"data-validate="passphrase" value="1234" placeholder="Adgangskode">
+            
             
             <button type="submit">LOG IND</button>
 
@@ -25,5 +20,6 @@
     </form>
     
 </main>
+
 <% include partials/footer.ejs %>
 <% include partials/after-footer.ejs %>

@@ -19,9 +19,10 @@ module.exports = function (app){
     });
 
     app.get('/admin/brugere/:id', (req, res, next) => {
-        db.query(`SELECT users.username, profiles.lastname, profiles.firstname, profiles.bio, users.id, roles.name AS rolename FROM profiles 
-        INNER JOIN users ON users.id = profiles.id
-        INNER JOIN roles ON users.roles_id = roles.id
+        db.query(`SELECT users.username AS username, profiles.firstname AS firstname, profiles.lastname AS lastname, profiles.bio AS bio, profiles.user_id AS userid, users.id AS id, users.roles_id AS userrole
+        FROM profiles
+        INNER JOIN users
+        ON profiles.user_id = users.id
         WHERE users.id = ?`, [req.params.id], function (err, results){
             if (err) return next(`${err} at db.query (${__filename}:9:5)`);
             res.render('edit_user', {title : 'Rediger bruger', 'results' : results[0]});

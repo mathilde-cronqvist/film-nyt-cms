@@ -15,7 +15,8 @@ module.exports = function (app){
     app.get('/rediger_artikel', (req, res, next) =>{
         db.query(`SELECT articles.id, articles.heading, articles.author, users.username, users.id AS userid FROM film_nyt.articles
         INNER JOIN users
-        ON articles.author = users.id`, function (err, results){
+        ON articles.author = users.id
+        WHERE author = ?`,[req.session.user], function (err, results){
             if(err) res.send(err);
             res.render('article_list', {title : 'Rediger Artikel', 'results' : results});
         }); 

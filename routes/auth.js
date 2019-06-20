@@ -12,19 +12,13 @@ module.exports = function (app){
 	} );
 
 	app.post('/auth/login', (req, res, next) => {
-		let success = true;
-		let errorMessage;
-		if(!req.fields.username || !req.fields.passphrase){
-			success = false;
-			errorMessage = 'Felter tomme';
-		}
-		if(success){
+
 			db.query(`SELECT users.id, passphrase, username, users.roles_id, roles.level FROM film_nyt.users
 			INNER JOIN roles ON users.roles_id = roles.id
             WHERE username = ?`, [req.fields.username], (err, result) => {
 				if (err) return next(`${err} at db.query (${__filename}:9:5)`);
 				if (result.length == 0){
-					res.render('login', {'errorMessage' : 'Brugernavn eller adgangskode er forkert'});
+					res.redirect('/login');
 					return;
 				} else if(result.length == 1){
 					if (bcrypt.compareSync(req.fields.passphrase, result[0].passphrase)) {
@@ -36,6 +30,7 @@ module.exports = function (app){
 						console.log(result[0]);
 					
 					res.redirect('/profile');
+					return;
 					}else{
 						res.redirect('/login?status=badcredentials');
 						return;
@@ -43,10 +38,6 @@ module.exports = function (app){
 				}
 				
 			});
-
-		} else {
-			res.render('login', {...req.fields, errorMessage})
-		}
 
 
 	});

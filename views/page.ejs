@@ -4,6 +4,11 @@
         <h1>Filmnyt</h1>
         <header>
                 <h2>Artikler</h2>
+                <ul>
+                <% menu.forEach( result =>{ %>
+                        <li><%= result.menu_name %></li>
+                <% }) %>
+                </ul>
 
         </header>
         <% results.forEach( result =>{ %>
